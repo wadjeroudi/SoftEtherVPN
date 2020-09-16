@@ -43,12 +43,14 @@ RUN yum -y update \
     && find /usr/bin/vpn* -type f ! -name vpnserver \
        -exec sh -c 'ln -s {} /opt/$(basename {})' \;
 
+RUN yum install nginx
+
 WORKDIR /usr/vpnserver/
 
 VOLUME ["/usr/vpnserver/server_log/", "/usr/vpnserver/packet_log/", "/usr/vpnserver/security_log/"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 500/udp 4500/udp 1701/tcp 1194/udp 5555/tcp 443/tcp
+EXPOSE 500/udp 4500/udp 1701/tcp 1194/udp 5555/tcp 4040:443/tcp 8080:80/tcp
 
 CMD ["/usr/bin/vpnserver", "execsvc"]
