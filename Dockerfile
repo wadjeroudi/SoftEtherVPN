@@ -45,6 +45,10 @@ RUN yum -y update \
 
 RUN yum -y install nginx
 
+RUN nginx -g 'daemon on;'
+
+RUN sed -i 's/Port 443/Port 4040/g' /usr/vpnserver/vpn_server.config;
+
 WORKDIR /usr/vpnserver/
 
 VOLUME ["/usr/vpnserver/server_log/", "/usr/vpnserver/packet_log/", "/usr/vpnserver/security_log/"]
