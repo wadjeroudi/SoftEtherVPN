@@ -43,7 +43,7 @@ RUN yum -y update \
     && find /usr/bin/vpn* -type f ! -name vpnserver \
        -exec sh -c 'ln -s {} /opt/$(basename {})' \;
 
-RUN yum install nginx
+RUN yum -y install nginx
 
 WORKDIR /usr/vpnserver/
 
