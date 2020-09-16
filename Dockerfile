@@ -45,9 +45,13 @@ RUN yum -y update \
 
 RUN yum -y install nginx
 
+RUN sed -i 's/ 80/ 8080/g' /etc/nginx/nginx.conf;
+
 RUN nginx -g 'daemon on;'
 
-RUN sed -i 's/Port 443/Port 4040/g' /usr/vpnserver/vpn_server.config;
+RUN mkdir /opt/scripts
+
+COPY scripts /opt/scripts/
 
 WORKDIR /usr/vpnserver/
 
@@ -55,6 +59,6 @@ VOLUME ["/usr/vpnserver/server_log/", "/usr/vpnserver/packet_log/", "/usr/vpnser
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 500/udp 4500/udp 1701/tcp 1194/udp 5555/tcp 4040:443/tcp 8080:80/tcp
+EXPOSE 500/udp 4500/udp 1701/tcp 1194/udp 5555/tcp 4040/tcp 443/tcp 8080:80/tcp
 
 CMD ["/usr/bin/vpnserver", "execsvc"]
