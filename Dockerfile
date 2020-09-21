@@ -47,7 +47,7 @@ RUN yum -y install nginx
 
 RUN sed -i 's/ 80/ 8080/g' /etc/nginx/nginx.conf;
 
-RUN nginx -g 'daemon on;'
+RUN nginx -g 'daemon off;'
 
 RUN mkdir /opt/scripts
 
